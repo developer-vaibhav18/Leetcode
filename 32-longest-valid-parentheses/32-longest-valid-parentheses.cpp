@@ -3,7 +3,8 @@ public:
     int longestValidParentheses(string s) {
         int c=0,ans=0,i,mn=s.size(),mx=-1,cur=0,n=s.size();
         int dp[n+1];
-        memset(dp,-1,sizeof(dp));
+        // memset(dp,-1,sizeof(dp));
+        dp[0]=-1;
         
         for(i=0;i<n;i++){
             if(s[i]=='('){
