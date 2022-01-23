@@ -18,7 +18,6 @@ private:
     string s;
     void rec(int i,char last,stack<int> &st,string &cur){
         if(i==s.size()){
-            // cout<<cur<<"\n";
             if(cur.size()==mx && valid(cur))ans.insert(cur);
             return;
         }
@@ -28,7 +27,6 @@ private:
             cur.pop_back();
             return;
         }
-        // cout<<s[i]<<" "<<
         rec(i+1,s[i],st,cur);
         if(s[i]==')'){
             if(!st.empty()){
@@ -77,4 +75,4 @@ public:
     }
 };
 
-// ())))(((()
+ 
