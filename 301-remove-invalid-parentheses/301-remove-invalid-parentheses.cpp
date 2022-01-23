@@ -1,24 +1,24 @@
 class Solution {
 private:
-    bool valid(string &s){
-        int c=0,i,n=s.size();
-        for(i=0;i<n;i++){
-            if(s[i]=='('){
-                c++;
-            }
-            else if(s[i]==')'){
-                c--;
-                if(c<0)return false;
-            }
-        }
-        return c==0;
-    }
-    set<string> ans;
+    // bool valid(string &s){
+    //     int c=0,i,n=s.size();
+    //     for(i=0;i<n;i++){
+    //         if(s[i]=='('){
+    //             c++;
+    //         }
+    //         else if(s[i]==')'){
+    //             c--;
+    //             if(c<0)return false;
+    //         }
+    //     }
+    //     return c==0;
+    // }
+    unordered_set<string> ans;
     int mx;
     string s;
     void rec(int i,char last,stack<int> &st,string &cur){
         if(i==s.size()){
-            if(cur.size()==mx && valid(cur))ans.insert(cur);
+            if(cur.size()==mx && st.empty())ans.insert(cur);
             return;
         }
         if(s[i]!='(' && s[i]!=')'){
@@ -67,7 +67,6 @@ public:
                 mx++;
             }
         }
-        // cout<<mx<<"\n";
         stack<int> st;
         string cur="";
         rec(0,'a',st,cur);
