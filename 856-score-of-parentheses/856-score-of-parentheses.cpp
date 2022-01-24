@@ -5,15 +5,11 @@ private:
         int c=0,ans=0;
         while(i<s.size()){
             if(s[i]=='('){
-                if(s[i+1]==')'){
+                i++;
+                if(s[i]==')'){
                     ans+=1;
-                    i+=2;
-                    if(i<s.size() && s[i]=='('){
-                        return ans+rec(i);
-                    }
-                    return 1;
+                    continue;
                 }
-                i++;c++;
                 ans+=(2*rec(i));
             }
             else{
