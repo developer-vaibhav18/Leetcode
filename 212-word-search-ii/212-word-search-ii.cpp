@@ -38,7 +38,7 @@ private:
         }
         if(i>=n || j>=m || i<0 || j<0 || vis[i][j])return ret;
         int pos=board[i][j]-'a';
-        if(root->child[pos]){
+        if(root->child[pos] && root->child[pos]->c){
             vis[i][j]=true;
             cur+=board[i][j];
             ret+=dfs(root->child[pos],i,j+1,cur)+
@@ -46,7 +46,6 @@ private:
                 dfs(root->child[pos],i,j-1,cur)+
                 dfs(root->child[pos],i-1,j,cur);
             root->c-=ret;
-            if(root->c==0)root->c==NULL;
             vis[i][j]=false;
             cur.pop_back();
         }
