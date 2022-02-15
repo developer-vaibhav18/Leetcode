@@ -40,7 +40,7 @@ private:
         int pos=board[i][j]-'a';
         if(root->child[pos] && root->child[pos]->c){
             vis[i][j]=true;
-            cur+=board[i][j];
+            cur.push_back(board[i][j]);
             ret+=dfs(root->child[pos],i,j+1,cur)+
                 dfs(root->child[pos],i+1,j,cur)+
                 dfs(root->child[pos],i,j-1,cur)+
