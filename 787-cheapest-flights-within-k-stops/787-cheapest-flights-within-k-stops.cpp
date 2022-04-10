@@ -1,43 +1,32 @@
-struct myComp {
-    constexpr bool operator()(
-        pair<int, pair<int, int>> const& a,
-        pair<int, pair<int, int>> const& b)
-        const noexcept
-    {
-        if(a.first==b.first)return a.second.first < b.second.first;
-        return a.first > b.first;
-    }
-};
-  
-class Solution {
+class Solution
+{
 public:
-    int findCheapestPrice(int n, vector<vector<int>>& v, int src, int dst, int k) {
-        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, myComp> pq;
-        vector<vector<pair<int,int>>> adj(n);
-        vector<vector<int>> vis(n,vector<int>(k+1,false));
-        for(auto i:v){
-            adj[i[0]].push_back({i[1],i[2]});
+    
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K)
+    {        
+        vector<vector<int>> dp(K+2, vector<int>(n, INT_MAX));
+        
+        //dp[i][j] = Dist to reach j using atmost i edges from src
+        
+        for(int i = 0; i <= K+1; i++)
+        {
+            dp[i][src] = 0; // Dist to reach src always zero
         }
-        for(auto i:adj[src]){
-            pq.push({i.second,{k, i.first}});
-        }
-        vis[src][k]=1;
-        int ans=-1;
-        while(!pq.empty()){
-            auto t=pq.top();pq.pop();
-            int node=t.second.second,cur_k=t.second.first,cur_cost=t.first;
-            if(node==dst){
-                ans=t.first;
-                break;
-            }
-            if(vis[node][cur_k] || cur_k==0)continue;
-            vis[node][cur_k]=1;
-            for(auto i:adj[node]){
-                if(!vis[i.first][cur_k-1]){
-                    pq.push({cur_cost+i.second, {cur_k-1, i.first}});
-                }
+        
+        for(int i = 1; i <= K+1; i++)
+        {
+            for(auto &f: flights)
+            {
+                //Using indegree
+                int u = f[0];
+                int v = f[1];
+                int w = f[2];
+                
+                if(dp[i-1][u] != INT_MAX)
+                    dp[i][v] = min(dp[i][v], dp[i-1][u] + w);
             }
         }
-        return ans;
+        
+        return (dp[K+1][dst] == INT_MAX)? -1: dp[K+1][dst];
     }
 };
