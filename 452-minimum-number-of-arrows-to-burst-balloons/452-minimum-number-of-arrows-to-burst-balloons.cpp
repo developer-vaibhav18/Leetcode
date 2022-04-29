@@ -1,7 +1,7 @@
-bool cmp(const vector<int> &v1, const vector<int> &v2){
+class Solution {
+static bool cmp(vector<int> &v1,vector<int> &v2){
     return v1[1]<v2[1];
 }
-class Solution {
 public:
     int findMinArrowShots(vector<vector<int>>& v) {
         sort(v.begin(),v.end(),cmp);
