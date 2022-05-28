@@ -95,7 +95,6 @@ public:
         while(l<=r){
             long long mid=(l+r)/2;
             long long mx=query(1,0,n-1,0,mid);
-            // cout<<mx<<' ';
             if(mx>=k){
                 r=mid-1;
                 ans=mid;
