@@ -15,12 +15,14 @@ public:
         while(s.size()){
             vector<int> p=*s.begin();
             s.erase(s.begin());
-            // if(vis[p[1]][p[2]])continue;
-            // vis[p[1]][p[2]]=true;
+            if(p[1]==n-1 && p[2]==m-1)return p[0];
+            if(vis[p[1]][p[2]])continue;
+            vis[p[1]][p[2]]=1;
             for(i=0;i<4;i++){
                 int x=p[1]+t[i][0],y=p[2]+t[i][1];
                 if(isValid(x,y,n,m)){
                     if(dp[x][y]>p[0]+v[x][y]){
+                        // s.erase({dp[x][y],x,y});
                         dp[x][y]=p[0]+v[x][y];
                         s.insert({dp[x][y],x,y});
                     }
