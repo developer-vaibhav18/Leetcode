@@ -1,123 +1,59 @@
-class LList{
-public:
-    LList *next;
-    LList *prev;
-    char val;
-    LList(char c){
-        val=c;
-        next=NULL;
-        prev=NULL;
-    }
-};
 class TextEditor {
+    stack<char> s1,s2;
 public:
-    bool bl=false;
-    LList *cur,*head;
     TextEditor() {
-        cur=NULL;head=NULL;
-        bl=false;
+        stack<char> s;
+        s1=s2=s;
     }
     
     void addText(string text) {
-        // cout<<text<<' ';
-        // if(cur==NULL)cout<<0<<'\n';
-        // else {
-        //     cout<<cur->val<<' ';
-        //     if(cur->next)cout<<cur->next->val;
-        //     cout<<'\n';
-        // }
         for(auto i:text){
-            if(cur==NULL){
-                cur=new LList(i);
-                if(bl==false){
-                    head=cur;
-                }
-                else{
-                    cur->next=head;
-                    head->prev=cur;
-                    head=cur;
-                    bl=false;
-                }
-                continue;
-            }
-            LList *temp=cur->next,*temp2=cur;
-            cur->next=new LList(i);
-            cur=cur->next;
-            cur->prev=temp2;
-            cur->next=temp;
-            if(temp)
-                temp->prev=cur;
+            s1.push(i);
         }
     }
     
     int deleteText(int k) {
         int ans=0;
-        while(cur && (k--)){
-            ++ans;
-            if(cur->prev){
-                LList *temp=cur->next;
-                cur=cur->prev;
-                cur->next=temp;
-                if(temp)
-                    temp->prev=cur;
-            }
-            else{
-                if(cur->next){
-                    head=cur->next;
-                    head->prev=NULL;
-                    bl=true;
-                }
-                else{
-                    head=NULL;
-                    bl=false;
-                }
-                cur=NULL;
-                return ans;
-            }
+        while(k-- && !s1.empty()){
+            s1.pop();
+            ans++;
         }
         return ans;
     }
     
     string cursorLeft(int k) {
-        while(cur && (k--)){
-            if(cur->prev){
-                cur=cur->prev;
-            }
-            else{
-                bl=true;
-                cur=NULL;
-                break;
-            }
-        }
-        LList *temp=cur;
-        int x=10;
         string ans="";
-        while(x-- && temp){
-            ans.push_back(temp->val);
-            temp=temp->prev;
+        while(k-- && !s1.empty()){
+            s2.push(s1.top());
+            s1.pop();
+        }
+        int x=10;
+        while(x-- && !s1.empty()){
+            ans.push_back(s1.top());
+            s1.pop();
         }
         reverse(ans.begin(),ans.end());
+        for(auto i:ans){
+            s1.push(i);
+        }
         return ans;
     }
     
     string cursorRight(int k) {
-        if(cur==NULL && bl){
-            cur=head;
-            bl=false;
-            k--;
-        }
-        while(cur && cur->next && (k--)){
-            cur=cur->next;
-        }
-        // cout<<1<<'\n';
-        LList *temp=cur;
-        int x=10;
         string ans="";
-        while(x-- && temp){
-            ans.push_back(temp->val);
-            temp=temp->prev;
+        while(!s2.empty() && k--){
+            s1.push(s2.top());
+            s2.pop();
+        }
+        int x=10;
+        while(x-- && !s1.empty()){
+            ans.push_back(s1.top());
+            s1.pop();
         }
         reverse(ans.begin(),ans.end());
+        for(auto i:ans){
+            s1.push(i);
+        }
         return ans;
     }
 };
