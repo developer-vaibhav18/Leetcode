@@ -84,12 +84,6 @@ public:
         fillAdj();
         fillMaxThree();
         
-        // for(int i = 0; i < numberOfNodes; ++i){
-        //     for(int j = 0; j < 3; ++j){
-        //         cout << maxThree[i][j] << ' ';
-        //     }
-        //     cout << '\n';
-        // }
         int ans = smallest;
         for(auto &edge : edges){
             int node1 = edge[0];
