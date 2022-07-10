@@ -17,11 +17,11 @@ public:
             dp[i][1] = 1;
             // cout << i << '\n';
             for(int j = 0; j < f[i].size(); ++j){
-                for(int k = 1; k < 45; ++k){
+                for(int k = 1; k < 20; ++k){
                     (dp[i][k + 1] += dp[f[i][j]][k]);
                 }
             }
-            for(int  k = 1; k < 45; ++k){
+            for(int  k = 1; k < 20; ++k){
                 (sz[k] += dp[i][k]) %= mod;
             }
         }
@@ -31,7 +31,7 @@ public:
         for(int i = 0; i <= n; ++i){
             dp2[0][i] = 1;
         }
-        for(int i = 1; i <= min(45, n); ++i){
+        for(int i = 1; i <= min(20, n); ++i){
             // cout << sz[i] << ' ';
             for(int j = i; j <= n; ++j){
                 dp2[i][j] = (dp2[i - 1][j - 1])%mod;
