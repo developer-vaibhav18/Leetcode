@@ -26,7 +26,6 @@ public:
                 }
                 if (mp.find(temp) == mp.end()) continue;
                 c++;
-                // if (start == 0) cout << i << ' ' << c << '\n';
                 
                 mp2[temp]--;
                 if (c == n) {
